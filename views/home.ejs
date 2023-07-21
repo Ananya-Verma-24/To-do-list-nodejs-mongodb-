@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- font-awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/home.css">
+
+</head>
+
+<body>
+
+     <!-- to contain the todo list -->
+    <div id="app">
+        <h1 id="app-title"><i class="fa-solid fa-list-check"></i> To Do App</h1>
+
+     <!-- input form -->
+        <div id="form">
+    <!-- form for creating to-do list -->
+            <form action="/create-todo" method="post" id="add-task">
+                 <div id="task-input">    <!-- task description input -->
+                    <input type="text" name="task" placeholder="What are you upto" required>
+                </div>
+            <!-- date input -->
+                <div id="date">
+                    <label>Due Date:</label>
+                    <input type="date" id="myDateInput" name="deadline" required>
+                </div>
+            <!-- category choice -->
+                <div id="category">
+                    <label>Category:</label>
+                    <select name="category">
+                        <option selected>Choose a category</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Work">Work</option>
+                        <option value="School">School</option>
+                        <option value="Cleaning">Cleaning</option>
+                        <option value="Other">Other</option>
+
+                    </select>
+                </div>
+            </form>
+        <!-- add and delete buttons -->
+            <div id="btns">
+                <div id="add-btn">
+                    <button type="submit" id="add" form="add-task"><i class="fa-solid fa-square-plus"></i></i> Add
+                        Task</button>
+                </div>
+                <div id="del-btn">
+                    <button id="delete" type="submit" form="delete-task"><i class="fa-solid fa-trash-can"></i> Delete
+                        Task</button>
+                </div>
+            </div>
+
+        </div>
+
+    
+        <form action="/delete-task" method="POST" id="delete-task"> <!--Form for checkbox-->
+            <div id="list">
+                <ul>
+                    <%for(let i of task_list){%> <!--Loop for printing tasks-->
+                        <li>
+
+                            <div class="flex-box">
+                                <div class="desc-box">
+                                    <label class="container">
+                                        <input type="checkbox" id="checkbox" name="<%=i._id%>">
+                                        <h2 class="desc-size">
+                                            <%=i.task%>
+                                        </h2> <!--Prints Description-->
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="cat-box"> <!--For printing categories-->
+                                    <%if(i.category=="Work"){%>
+                                        <h3 class="category-list" style="background-color:#3c005a;">
+                                            <span>
+                                                <%=i.category%>
+                                            </span>
+                                        </h3>
+                                        <%}%>
+                                            <%if(i.category=="Personal"){%>
+                                                <h3 class="category-list" style="background-color:#800080;">
+                                                    <span>
+                                                        <%=i.category%>
+                                                    </span>
+                                                </h3>
+                                                <%}%>
+                                                    <%if(i.category=="School"){%>
+                                                        <h3 class="category-list" style="background-color:#2d013c;">
+                                                            <span>
+                                                                <%=i.category%>
+                                                            </span>
+                                                        </h3>
+                                                        <%}%>
+                                                            <%if(i.category=="Cleaning"){%>
+                                                                <h3 class="category-list"
+                                                                    style="background-color:#230345;">
+                                                                    <span>
+                                                                        <%=i.category%>
+                                                                    </span>
+                                                                </h3>
+                                                                <%}%>
+                                                                    <%if(i.category=="Other"){%>
+                                                                        <h3 class="category-list"
+                                                                            style="background-color:#23005a;">
+                                                                            <span>
+                                                                                <%=i.category%>
+                                                                            </span>
+                                                                        </h3>
+                                                                        <%}%>
+
+                                </div>
+                            </div>
+                            <h4 class="date-show"> <!--For printing Date-->
+                                <i class="far fa-calendar-alt"></i>
+                                <%=i.deadline%>
+                            </h4>
+                        </li>
+                        <%}%>
+                </ul>
+            </div>
+        </form>
+ </div>
+
+
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
+
+</html>
